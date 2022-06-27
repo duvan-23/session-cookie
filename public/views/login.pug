@@ -1,0 +1,16 @@
+extends inicio 
+
+block login   
+    div.container.mt-3
+        div.jumbotron
+            h1(style="color:blue;")!="Login de Usuario"
+            br
+            form(autocomplete='off')
+                div.form-group
+                    label(for="nombre") Ingrese su nombre: 
+                    input#nombre_login.form-control(type='text', placeholder='nombre' name='nombre' required)
+                button#enviar.btn.btn-success.mt-3.mb-5(type="button", name="enviar") Enviar
+            div#alerta.alert.alert-warning(role="alert", style="visibility:hidden;")
+                h1(style="color:blue;")!="El campo nombre es obligatorio"
+                
+    script(src='../login.js')
