@@ -65,17 +65,25 @@ app.set('view engine', 'pug')
 
 await contenedorMongo.conectar();
 app.get('/', (req, res) => {
-    // res.sendFile('index.pug', {root: __dirname})
-
     if (req.session.contador) {
         req.session.contador++
         console.log(`${req.session.nombre}, visitaste la pagina ${req.session.contador} veces`);
         res.render('./views/mensajes',{nombre:req.session.nombre})
-    } else if(req.query.nombre){
-        req.session.contador = 1
-        req.session.nombre = req.query.nombre;
+    }else{
+        res.redirect('/login');
+    }
+})
+app.post('/', (req, res) => {
+    let datos = req.body.nombre;
+    if (req.session.contador) {
+        req.session.contador++
+        console.log(`${req.session.nombre}, visitaste la pagina ${req.session.contador} veces`);
+        res.redirect('/');
+    } else if(req.body.nombre){
+        req.session.contador = 1;
+        req.session.nombre = datos;
         console.log(`Hello there. ${req.session.nombre}`);
-        res.render('./views/mensajes',{nombre:req.session.nombre})
+        res.redirect('/');
     }else{
         res.redirect('/login');
     }
@@ -89,7 +97,11 @@ app.get('/api/productos-test', (req, res) => {
 
 app.get('/login', (req, res) => {
     // res.sendFile('index.pug', {root: __dirname})
-    res.render('./views/login')
+    if (req.session.contador) {
+        res.redirect('/');
+    }else{
+        res.render('./views/login')
+    }
 })
 
 app.post('/login', (req, res) => {

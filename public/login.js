@@ -5,10 +5,20 @@ if(enviar){
         e.preventDefault();
         const nombre=document.getElementById("nombre_login");
         if(nombre.value!=""){
-
+            const data ={
+                nombre: nombre.value
+            };
+            fetch(`/`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify(data)
+            })
             setTimeout(() => {
-                window.location.href=`/?nombre=${nombre.value}`;
-            }, 500);
+                window.location.href=`/`;
+            }, 1000);
+            
             
         }else{
             document.getElementById("alerta").style.visibility = "visible";

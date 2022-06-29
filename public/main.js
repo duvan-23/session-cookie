@@ -1,8 +1,5 @@
 const socket = io.connect();
 
-if(window.location.href.indexOf('?nombre')!=-1){
-    window.location.href=`/`;
-}
 const olvidar=document.getElementById("olvidar");
 if(olvidar){
     olvidar.addEventListener('click',(e)=>{
